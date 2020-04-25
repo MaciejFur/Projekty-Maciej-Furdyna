@@ -20,8 +20,8 @@ function draw() {
     let h = height / 3;
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++){
-            let x = w * i;
-            let y = h * j;
+            let x = w * i + w/2;
+            let y = h * j + h/2;
             let spot = board[i][j];
             textSize(32);
             if (spot == player1) {
