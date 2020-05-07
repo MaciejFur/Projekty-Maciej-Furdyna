@@ -1,1 +1,2 @@
 class Board{}
+class Cell{}
