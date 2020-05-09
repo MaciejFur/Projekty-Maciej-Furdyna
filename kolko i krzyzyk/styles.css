@@ -1,0 +1,13 @@
+/*Tags without classes*/
+body{
+    margin:0;
+}
+/*Main Screen*/
+.mainScreen{
+    border:0.25rem solid #000;
+}
+/*Cells*/
+div.cells > div {
+    border:0.075rem dashed #ff0000;
+}
+
