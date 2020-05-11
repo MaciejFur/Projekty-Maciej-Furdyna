@@ -5,35 +5,104 @@ body{
     font-family: 'Roboto', sans-serif;
     background:#eee;
 }
+hr{
+    border-color: #fff;
+}
+a{
+    text-decoration: none;
+    color:#ddf;
+}
+a:hover{
+    color:#aaf;
+}
+.btn{
+    margin:2rem 0 0 45%;
+}
 /*Main Screen*/
 .mainScreen{
-    width:50%;
+    width:45%;
+    height:100vh;
     margin: 0 auto;
-    background: #fff;
-    
+    background: #88c;
+    padding:2.5%;
+}
+p.title{
+    margin:0
 }
 #title{
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
-    border: 1px 0;
-    border-color: #aaa;
+    border: 0.575rem;
+    border-color: #aaf;
     border-style: inset;
-    box-shadow: 5px 3px #aaa;
+    background:#eef;
+    margin:0;
 }
+p#turn{
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+}
+p#noTurn{
 
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px 0;
+    border-color: #aaf;
+    border-style: outset;
+    background:#eef;
+    margin: 0;
+ }
+
+p#circle{
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px 0;
+    border-color: #faa;
+    border-style: outset;
+    background:#fee;
+    margin: 0;
+}
+p#cross{
+    text-align: center;
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px 0;
+    border-color: #afa;
+    border-style: outset;
+    background:#efe;
+    margin: 0;
+}
 /*Cells*/
 .cells{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: minmax(auto, 10rem)
-    minmax(auto, 10rem) minmax(auto, 10rem);
-
+    grid-template-rows: minmax(9.525rem, auto)
+     minmax(9rem, auto) minmax(9.525rem, auto);
+    margin: 1rem auto;
+    padding: 0 3rem;
 }
 div.cells > div {
     text-align: center;
     color:#ddd;
     border: 0.15rem #000 solid;
+    background:#fff;
+    padding-top: 3rem;
+    font-size: 3rem;
 }
-
+/*Footer*/
+div#footer{
+    margin-top: 1rem;
+    text-align: center;
+    color: #ddf;
+    font-size: 1.25rem;
+}
