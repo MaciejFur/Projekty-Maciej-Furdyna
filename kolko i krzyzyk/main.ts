@@ -38,6 +38,7 @@ class Board
         {
             this.currentPlayer = 
             this.players[Math.floor(Math.random()*2)];
+
         }
     }
     ResetGame()
@@ -84,7 +85,7 @@ class Board
             (this.cellBoard[0].sign == "X" || this.cellBoard[0].sign == "O"))
             {
                 console.log(this.cellBoard[0].sign + " Wins")
-                alert(this.cellBoard[1].sign + " Wins horizontal " +
+                alert(this.cellBoard[0].sign + " Wins horizontal " +
                  this.cellBoard[0].sign + this.cellBoard[3].sign +this.cellBoard[6].sign)
 
             }
@@ -101,7 +102,7 @@ class Board
             (this.cellBoard[2].sign == "X" || this.cellBoard[2].sign == "O"))
             {
                 console.log(this.cellBoard[2].sign + " Wins")
-                alert(this.cellBoard[1].sign + " Wins horizontal" +
+                alert(this.cellBoard[2].sign + " Wins horizontal" +
                 this.cellBoard[2].sign + this.cellBoard[5].sign + this.cellBoard[8].sign)
             }
         //VERTICAL CHECKING
@@ -143,8 +144,8 @@ class Board
             (this.cellBoard[4].sign  == this.cellBoard[6].sign)) &&
             (this.cellBoard[2].sign == "X" || this.cellBoard[2].sign == "O"))
             {
-                console.log(this.cellBoard[1].sign + " Wins")
-                alert(this.cellBoard[1].sign + " Wins diagonal")
+                console.log(this.cellBoard[2].sign + " Wins")
+                alert(this.cellBoard[2].sign + " Wins diagonal")
             }
     }
 
@@ -167,13 +168,14 @@ class Cell
     }
     PlaceSign()
     {
-
-        currentId = parseInt(this._id);
-        document.getElementById(this._id).innerHTML = this._sign;
-        
-        console.log(this._id);
-        console.log(this._sign);
-        
+        if(this._sign != undefined)
+        {   
+            currentId = parseInt(this._id);
+            document.getElementById(this._id).innerHTML = this._sign;
+            
+            console.log("Current ID = " + this._id);
+            console.log("Current Sign = " + this._sign);
+        }   
     }
     
 }
@@ -181,8 +183,8 @@ class Cell
 window.onload = () => 
 {
     let playBoard : Board = new Board;
-    console.log("current player is:" + playBoard.currentPlayer)
     playBoard.CreateBoard();
+    console.log("current player is:" + playBoard.currentPlayer)
     playBoard.StartGame();
     
     let reset: HTMLElement = document.getElementById("reset");

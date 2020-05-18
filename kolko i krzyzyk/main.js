@@ -67,7 +67,7 @@ var Board = /** @class */ (function () {
             (this.cellBoard[3].sign == this.cellBoard[6].sign)) &&
             (this.cellBoard[0].sign == "X" || this.cellBoard[0].sign == "O")) {
             console.log(this.cellBoard[0].sign + " Wins");
-            alert(this.cellBoard[1].sign + " Wins horizontal " +
+            alert(this.cellBoard[0].sign + " Wins horizontal " +
                 this.cellBoard[0].sign + this.cellBoard[3].sign + this.cellBoard[6].sign);
         }
         else if (((this.cellBoard[1].sign == this.cellBoard[4].sign) &&
@@ -81,7 +81,7 @@ var Board = /** @class */ (function () {
             (this.cellBoard[5].sign == this.cellBoard[8].sign)) &&
             (this.cellBoard[2].sign == "X" || this.cellBoard[2].sign == "O")) {
             console.log(this.cellBoard[2].sign + " Wins");
-            alert(this.cellBoard[1].sign + " Wins horizontal" +
+            alert(this.cellBoard[2].sign + " Wins horizontal" +
                 this.cellBoard[2].sign + this.cellBoard[5].sign + this.cellBoard[8].sign);
         }
         //VERTICAL CHECKING
@@ -116,8 +116,8 @@ var Board = /** @class */ (function () {
         else if (((this.cellBoard[2].sign == this.cellBoard[4].sign) &&
             (this.cellBoard[4].sign == this.cellBoard[6].sign)) &&
             (this.cellBoard[2].sign == "X" || this.cellBoard[2].sign == "O")) {
-            console.log(this.cellBoard[1].sign + " Wins");
-            alert(this.cellBoard[1].sign + " Wins diagonal");
+            console.log(this.cellBoard[2].sign + " Wins");
+            alert(this.cellBoard[2].sign + " Wins diagonal");
         }
     };
     return Board;
@@ -138,18 +138,20 @@ var Cell = /** @class */ (function () {
         configurable: true
     });
     Cell.prototype.PlaceSign = function () {
-        currentId = parseInt(this._id);
-        document.getElementById(this._id).innerHTML = this._sign;
-        console.log(this._id);
-        console.log(this._sign);
+        if (this._sign != undefined) {
+            currentId = parseInt(this._id);
+            document.getElementById(this._id).innerHTML = this._sign;
+            console.log("Current ID = " + this._id);
+            console.log("Current Sign = " + this._sign);
+        }
     };
     return Cell;
 }());
 //addEventListener('click', clickHandler);
 window.onload = function () {
     var playBoard = new Board;
-    console.log("current player is:" + playBoard.currentPlayer);
     playBoard.CreateBoard();
+    console.log("current player is:" + playBoard.currentPlayer);
     playBoard.StartGame();
     var reset = document.getElementById("reset");
     reset.onclick = function (e) { playBoard.ResetGame(); };
