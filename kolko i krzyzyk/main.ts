@@ -54,8 +54,6 @@ class Board
             document.getElementById("turn").innerHTML =
              "<p id=\"cross\">X</p>";
             this.cellBoard[currentId].sign = "X";
-            console.log("current player is:" + this.currentPlayer)            
-            console.log(this.cellBoard[currentId].sign);
             this.currentPlayer = "O";
 
         }
@@ -64,13 +62,10 @@ class Board
             document.getElementById("turn").innerHTML =
              "<p id=\"circle\">O</p>";
              this.cellBoard[currentId].sign = "O";
-             console.log("current player is:" + this.currentPlayer)  
-             console.log(this.cellBoard[currentId].sign);
              this.currentPlayer = "X";
 
         }
         this.StillRunning();
-        console.log(this.cellBoard);
     }
     PlayerSelect()
     {

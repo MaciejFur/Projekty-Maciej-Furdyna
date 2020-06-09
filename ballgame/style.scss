@@ -1,0 +1,22 @@
+$playScreenWidth: 75vw;
+$playScreenHeight: 70vh;
+body{
+    background-color: #222;
+    font-family: 'Permanent Marker', cursive;
+}
+
+#mainScreen{
+    width: $playScreenWidth;
+    height: $playScreenHeight;
+    background-color: #daa;
+    margin-left: auto;
+    margin-right: auto;
+}
+#scoreBoard{
+    background-color: #333;
+    color: #fff;
+    width: $playScreenWidth;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}

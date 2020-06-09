@@ -16,3 +16,4 @@ function animate() {
     // obliczenia, zmiana położenia
     window.requestAnimationFrame(animate);
 }
+//# sourceMappingURL=main.js.map
