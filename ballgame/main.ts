@@ -17,3 +17,23 @@ function animate(): void {
     // obliczenia, zmiana położenia
     window.requestAnimationFrame(animate)
 }
+
+const canvas = <HTMLCanvasElement> document.getElementById("game"); 
+const context = canvas.getContext("2d"); 
+
+canvas.width = window.innerWidth - 500;
+canvas.height = window.innerHeight - 500;
+
+const x = canvas.width;
+const y = canvas.height;
+
+function drawPlayer()
+{
+    context.beginPath();
+    context.arc(x/2, y/2, 10, 0, 2 * Math.PI);
+    context.stroke();
+    context.fillStyle = "black";
+    context.fill();
+}
+
+drawPlayer();

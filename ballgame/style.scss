@@ -2,21 +2,44 @@ $playScreenWidth: 75vw;
 $playScreenHeight: 70vh;
 body{
     background-color: #222;
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'VT323', monospace;
+    p{
+        font-size: 42px;
+        padding:0 3rem;
+        background: #333;
+        span{
+            margin-left: 1.575rem;
+            font-size: 32px;
+            text-decoration: underline;
+        }
+    }
 }
 
 #mainScreen{
     width: $playScreenWidth;
     height: $playScreenHeight;
-    background-color: #daa;
+    background-color: #211;
     margin-left: auto;
     margin-right: auto;
+    position: absolute;
+    top:20%;
+    left:12.5%;
 }
 #scoreBoard{
-    background-color: #333;
+    background-color: #444;
     color: #fff;
     width: $playScreenWidth;
     height: auto;
     margin-left: auto;
     margin-right: auto;
 }
+canvas {
+    background:#eee;
+    //width:100%;
+    //height:auto;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    margin-top: 5%;
+  }
