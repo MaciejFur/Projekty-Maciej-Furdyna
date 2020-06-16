@@ -18,12 +18,13 @@ body{
 #mainScreen{
     width: $playScreenWidth;
     height: $playScreenHeight;
-    background-color: #211;
+    background-color: #222;
     margin-left: auto;
     margin-right: auto;
     position: absolute;
     top:20%;
     left:12.5%;
+    border:solid #444 1px;
 }
 #scoreBoard{
     background-color: #444;

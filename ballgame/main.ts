@@ -35,5 +35,11 @@ function drawPlayer()
     context.fillStyle = "black";
     context.fill();
 }
-
+function Resized()
+{
+    canvas.width = window.innerWidth - 500;
+    canvas.height = window.innerHeight;
+    
+}
+window.addEventListener("resize", Resized);
 drawPlayer();
