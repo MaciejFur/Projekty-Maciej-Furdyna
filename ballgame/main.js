@@ -1,16 +1,25 @@
+var Pickups = /** @class */ (function () {
+    function Pickups(x, y, radius, color) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+    }
+    return Pickups;
+}());
 var canvas = document.getElementById("game");
 var context = canvas.getContext("2d");
 canvas.width = window.innerWidth / 2;
 canvas.height = window.innerHeight / 2;
 var x = canvas.width;
 var y = canvas.height;
-//canvas.scale(2,2, redCircle.x, redCircle.y);
 var ball = {
     x: x / 2,
     y: y / 2,
-    radius: 20
+    radius: 20,
+    color: "black"
 };
-var pickableNumber = 60;
+var pickableNumber = x / 10;
 function onDeviceOrientationChange(e) {
     console.log(e.alpha, e.beta, e.gamma);
 }
@@ -23,7 +32,7 @@ function drawPlayer() {
     context.beginPath();
     context.arc(x / 2, y / 2, ball.radius, 0, 2 * Math.PI);
     context.stroke();
-    context.fillStyle = "black";
+    context.fillStyle = ball.color;
     context.fill();
 }
 function drawPickups(x, y, radius, color) {
@@ -34,10 +43,12 @@ function drawPickups(x, y, radius, color) {
     context.fill();
 }
 function resized() {
-    /* canvas.width = window.innerWidth /2;
-     canvas.height = window.innerHeight;
-     location.reload();
-     drawPlayer();*/
+    /*
+    canvas.width = window.innerWidth /2;
+    canvas.height = window.innerHeight;
+    location.reload();
+    drawPlayer();
+    */
 }
 window.addEventListener("resize", resized);
 drawPlayer();
@@ -46,35 +57,23 @@ function mapSize(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-/*for (let i = 0; i <= pickables; i++)
-{
-    if (i % 10 == 0)
-    {
-        drawPickups(mapSize(0, x), mapSize(0, y), 40, "red");
-    }
-    if (i % 20 == 0){
-        drawPickups(mapSize(0, x), mapSize(0, y), 10, "blue");
-    }
-    else
-    {
-        drawPickups(mapSize(0, x), mapSize(0, y), 20, "green");
-    }
-}*/
-var listOfPickups;
+var listOfPickups = [];
+listOfPickups[0] = (new Pickups(ball.x, ball.y, ball.radius, ball.color));
 for (var i = 0; i <= pickableNumber; i++) {
+    var xLocation = mapSize(0, x);
+    var yLocation = mapSize(0, y);
+    var objectRadius = 15;
+    var objectColor = "Green";
     if (i % 10 == 0) {
-        drawPickups(mapSize(0, x), mapSize(0, y), 40, "red");
+        objectRadius = 30;
+        objectColor = "Red";
     }
     if (i % 20 == 0) {
-        drawPickups(mapSize(0, x), mapSize(0, y), 10, "blue");
+        objectRadius = 10;
+        objectColor = "Blue";
     }
-    else {
-        drawPickups(mapSize(0, x), mapSize(0, y), 20, "green");
-    }
+    listOfPickups[listOfPickups.length] = (new Pickups(xLocation, yLocation, objectRadius, objectColor));
+    drawPickups(xLocation, yLocation, objectRadius, objectColor);
 }
-var Pickups = /** @class */ (function () {
-    function Pickups() {
-    }
-    return Pickups;
-}());
+console.log(listOfPickups);
 //# sourceMappingURL=main.js.map

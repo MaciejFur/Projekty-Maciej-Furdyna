@@ -1,4 +1,19 @@
-
+class Pickups {
+    public x: number;
+    public y: number;
+    public radius: number;
+    public color: string;   
+    constructor(x: number, 
+                y: number,
+                radius: number,
+                color: string) 
+    {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+    }
+}
 const canvas = <HTMLCanvasElement> document.getElementById("game"); 
 const context = canvas.getContext("2d"); 
 
@@ -8,14 +23,13 @@ canvas.height = window.innerHeight/2;
 const x = canvas.width;
 const y = canvas.height;
 
-//canvas.scale(2,2, redCircle.x, redCircle.y);
-
 const ball = {
     x: x/2,
     y: y/2,
-    radius: 20
+    radius: 20,
+    color: "black"
 }
-let pickableNumber : number = 60;
+let pickableNumber : number = x/10;
 
 function onDeviceOrientationChange(e: any): void 
 {
@@ -31,7 +45,7 @@ function drawPlayer()
     context.beginPath();
     context.arc(x/2, y/2, ball.radius, 0, 2 * Math.PI);
     context.stroke();
-    context.fillStyle = "black";
+    context.fillStyle = ball.color;
     context.fill();
 }
 function drawPickups(x, y, radius, color)
@@ -44,10 +58,12 @@ function drawPickups(x, y, radius, color)
 }
 function resized()
 {
-   /* canvas.width = window.innerWidth /2;
+    /*
+    canvas.width = window.innerWidth /2;
     canvas.height = window.innerHeight;
     location.reload();
-    drawPlayer();*/
+    drawPlayer();
+    */
     
 }
 window.addEventListener("resize", resized);
@@ -58,39 +74,26 @@ function mapSize(min, max)
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-/*for (let i = 0; i <= pickables; i++)
-{
-    if (i % 10 == 0)
-    {
-        drawPickups(mapSize(0, x), mapSize(0, y), 40, "red");
-    }
-    if (i % 20 == 0){
-        drawPickups(mapSize(0, x), mapSize(0, y), 10, "blue");
-    }
-    else
-    {
-        drawPickups(mapSize(0, x), mapSize(0, y), 20, "green");
-    }
-}*/
-let listOfPickups: Pickups[];
+let listOfPickups: Pickups[] = [];
+listOfPickups[0] = (new Pickups(ball.x, ball.y, ball.radius, ball.color));
 for (let i = 0; i <= pickableNumber; i++)
 {
+    let xLocation : number = mapSize(0, x);
+    let yLocation : number = mapSize(0, y);
+    let objectRadius : number = 15;
+    let objectColor : string = "Green";
     if (i % 10 == 0)
     {
-        drawPickups(mapSize(0, x), mapSize(0, y), 40, "red");
+        objectRadius = 30;
+        objectColor = "Red";
     }
-    if (i % 20 == 0){
-        drawPickups(mapSize(0, x), mapSize(0, y), 10, "blue");
-    }
-    else
+    if (i % 20 == 0)
     {
-        drawPickups(mapSize(0, x), mapSize(0, y), 20, "green");
+        
+        objectRadius = 10;
+        objectColor = "Blue";
     }
+    listOfPickups[listOfPickups.length] = (new Pickups(xLocation, yLocation, objectRadius, objectColor));
+    drawPickups(xLocation, yLocation, objectRadius, objectColor);
 }
-class Pickups
-{
-    public color: string;
-    public y: number;
-    public x: number;
-    public radius: number;
-}
+console.log(listOfPickups);
