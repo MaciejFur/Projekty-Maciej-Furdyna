@@ -1,13 +1,22 @@
+
+const canvas = <HTMLCanvasElement> document.getElementById("game"); 
+const context = canvas.getContext("2d"); 
+
+canvas.width = window.innerWidth /2;
+canvas.height = window.innerHeight/2;
+
+const x = canvas.width;
+const y = canvas.height;
+
+//canvas.scale(2,2, redCircle.x, redCircle.y);
+
 const ball = {
-    x: 40,
-    y: 50,
+    x: x/2,
+    y: y/2,
     radius: 20
 }
-const hole = {
-    x: 100,
-    y: 100,
-    radius: 20
-}
+let pickableNumber : number = 60;
+
 function onDeviceOrientationChange(e: any): void 
 {
     console.log(e.alpha, e.beta, e.gamma);
@@ -17,29 +26,71 @@ function animate(): void {
     // obliczenia, zmiana położenia
     window.requestAnimationFrame(animate)
 }
-
-const canvas = <HTMLCanvasElement> document.getElementById("game"); 
-const context = canvas.getContext("2d"); 
-
-canvas.width = window.innerWidth - 500;
-canvas.height = window.innerHeight - 500;
-
-const x = canvas.width;
-const y = canvas.height;
-
 function drawPlayer()
 {
     context.beginPath();
-    context.arc(x/2, y/2, 10, 0, 2 * Math.PI);
+    context.arc(x/2, y/2, ball.radius, 0, 2 * Math.PI);
     context.stroke();
     context.fillStyle = "black";
     context.fill();
 }
-function Resized()
+function drawPickups(x, y, radius, color)
 {
-    canvas.width = window.innerWidth - 500;
+    context.beginPath();
+    context.arc(x, y, radius, 0, 2 * Math.PI);
+    context.stroke();
+    context.fillStyle = color;
+    context.fill();
+}
+function resized()
+{
+   /* canvas.width = window.innerWidth /2;
     canvas.height = window.innerHeight;
+    location.reload();
+    drawPlayer();*/
     
 }
-window.addEventListener("resize", Resized);
+window.addEventListener("resize", resized);
 drawPlayer();
+function mapSize(min, max)
+{
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+/*for (let i = 0; i <= pickables; i++)
+{
+    if (i % 10 == 0)
+    {
+        drawPickups(mapSize(0, x), mapSize(0, y), 40, "red");
+    }
+    if (i % 20 == 0){
+        drawPickups(mapSize(0, x), mapSize(0, y), 10, "blue");
+    }
+    else
+    {
+        drawPickups(mapSize(0, x), mapSize(0, y), 20, "green");
+    }
+}*/
+let listOfPickups: Pickups[];
+for (let i = 0; i <= pickableNumber; i++)
+{
+    if (i % 10 == 0)
+    {
+        drawPickups(mapSize(0, x), mapSize(0, y), 40, "red");
+    }
+    if (i % 20 == 0){
+        drawPickups(mapSize(0, x), mapSize(0, y), 10, "blue");
+    }
+    else
+    {
+        drawPickups(mapSize(0, x), mapSize(0, y), 20, "green");
+    }
+}
+class Pickups
+{
+    public color: string;
+    public y: number;
+    public x: number;
+    public radius: number;
+}
