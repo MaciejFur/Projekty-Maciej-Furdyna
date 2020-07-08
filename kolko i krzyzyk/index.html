@@ -8,26 +8,29 @@
     <link rel="icon"
      href="https://www.publicdomainpictures.net/pictures/260000/velka/tic-tac-toe-1526789164NkQ.jpg"
       type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet"> 
   </head>
     <body>
+      <div id="content">
         <div>
+          <div id="scoreBoard">
+            <div>O Points<p id="oPoints">0</p></div>
+          </div>
+        </div>
         <div class="mainScreen">
           <p id="title">Tic Tac Toe</p>
           <div class="cells" id="cellContainer">
-            <!--<div id="1">1</div>
-            <div id="2">2</div>
-            <div id="3">3</div>
-            <div id="4">4</div>
-            <div id="5">5</div>
-            <div id="6">6</div>
-            <div id="7">7</div>
-            <div id="8">8</div>
-            <div id="9">9</div>-->
+            <!---HERE DIV ARE ADDED BY CODE-->
           </div>  
           <p id="noTurn">Current Turn</p>
           <p id="turn">2</p>
           <button id="reset" class="btn" 
-          type="button" onclick="RestartGame()">Restart</button>
+          type="button" onclick="RestartGame()">Restart Game</button>
+        </div>
+        <div>
+          <div id="scoreBoard">
+            <div>X Points<p id="xPoints">0</p></div>
+          </div>
         </div>
       </div>
       <hr>

@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
 /*Tags without classes*/
 body{
     margin:0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'VT323', monospace;
     background:#eee;
 }
 hr{
@@ -10,19 +9,66 @@ hr{
 }
 a{
     text-decoration: none;
-    color:#ddf;
-}
-a:hover{
     color:#aaf;
 }
-.btn{
-    margin:2rem 0 0 45%;
+a:hover{
+    color:#88f;
 }
 /*Main Screen*/
+#content{
+    display: flex;
+    font-size: 120%;
+}
+#content > div:nth-child(1)
+{
+    width: 25%;
+    font-size: 200%;
+    text-align: center;
+    background:#fee;
+    border: 1px 0;
+    border-color: #faa;
+    border-style: outset;
+}
+#oPoints
+{
+    width: 75%;
+    font-size: 200%;
+    text-align: center;
+    background:#fee;
+    border: 5px;
+    border-color: #faa;
+    border-style: outset;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: underline;
+}
+#content > div:nth-child(3)
+{
+    width: 25%;
+    font-size: 200%;
+    text-align: center;
+    background:#efe;
+    border: 1px 0;
+    border-color: #afa;
+    border-style: outset;
+}
+#xPoints
+{
+    width: 75%;
+    font-size: 200%;
+    text-align: center;
+    background:#efe;
+    border: 5px;
+    border-color: #afa;
+    border-style: outset;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: underline;
+}
 .mainScreen{
-    width:45%;
+    width:50%;
     height:100vh;
-    margin: 0 auto;
+    margin: 0;
     background: #88c;
     padding:2.5%;
 }
@@ -42,7 +88,7 @@ p.title{
 }
 p#turn{
     text-align: center;
-    font-size: 1.125rem;
+    font-size: 150%;
     font-weight: bold;
     text-transform: uppercase;
     margin: 0;
@@ -50,7 +96,7 @@ p#turn{
 p#noTurn{
 
     text-align: center;
-    font-size: 1.125rem;
+    font-size: 150%;
     font-weight: bold;
     text-transform: uppercase;
     border: 1px 0;
@@ -71,6 +117,9 @@ p#circle{
     background:#fee;
     margin: 0;
 }
+p#circle:hover{
+    background:#faa;
+}
 p#cross{
     text-align: center;
     font-size: 1.125rem;
@@ -81,6 +130,9 @@ p#cross{
     border-style: outset;
     background:#efe;
     margin: 0;
+}
+p#cross:hover{
+    background:#afa;
 }
 /*Cells*/
 .cells{
@@ -103,6 +155,50 @@ div.cells > div {
 div#footer{
     margin-top: 1rem;
     text-align: center;
-    color: #ddf;
+    color: #aaf;
     font-size: 1.25rem;
+}
+/*BUTTON*/
+.btn{
+    font-family: 'VT323', monospace;
+    width:75%;
+    font-size: 150%;
+    height: 4rem;
+    margin-left: 12.5%;
+    margin-top: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 3px;
+    border-color: #aaf;
+    border-style: outset;
+    background: #eef;
+}
+
+.btn:hover{
+    font-family: 'VT323', monospace;
+    width:75%;
+    font-size: 150%;
+    height: 4rem;
+    margin-left: 12.5%;
+    margin-top: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 3px;
+    border-color: #aaf;
+    border-style: outset;
+    background: #aaf;
+}
+.btn:active{
+    font-family: 'VT323', monospace;
+    width:75%;
+    font-size: 150%;
+    height: 4rem;
+    margin-left: 12.5%;
+    margin-top: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 3px;
+    border-color: #aaf;
+    border-style: outset;
+    background: #88f;
 }

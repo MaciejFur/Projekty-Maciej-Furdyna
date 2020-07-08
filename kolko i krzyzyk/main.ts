@@ -4,8 +4,20 @@
 
 
 */
+
+function sleep(milliseconds) 
+{
+    const date = Date.now();
+    let currentDate = null;
+    do {
+        currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+}
+
 let currentPlayer : string[] = ['X', 'O'];
 let turnNum : number = 0;
+let xPoints : number = 0;
+let oPoints : number = 0;
 
 class Cell
 {
@@ -22,10 +34,6 @@ class Cell
     set value(value : string){
         this._value = value;
     }
-
-    
-
-
 }
 class Board
 {
@@ -45,9 +53,9 @@ class Board
     {
         let cellContainer : HTMLElement =
             document.getElementById("cellContainer");
-
-        cellContainer.innerHTML = "";
         
+        cellContainer.innerHTML = "";
+        this.cells = [];
         
         
         for(let i:number = 0; i < 9; ++i)
@@ -78,73 +86,152 @@ class Board
         
         //HORIZONTAL CHECKING
         if(((this.cells[0].value == this.cells[3].value) &&
-            (this.cells[3].value  == this.cells[6].value)) &&
-            (this.cells[0].value == "X" || this.cells[0].value == "O"))
+            (this.cells[3].value  == this.cells[6].value)))
             {
-                //code here
+                if(this.cells[0].value == "X")
+                {
+                    document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+                }
+                else
+                {
+                    document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                }
+                this.NextTurn();
+            
             }
         else if(((this.cells[1].value == this.cells[4].value) &&
-            (this.cells[4].value  == this.cells[7].value)) &&
-            (this.cells[1].value == "X" || this.cells[1].value == "O"))
+            (this.cells[4].value  == this.cells[7].value)))
             {
-                //code here   
+                if(this.cells[1].value == "X")
+                {
+                    document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+                }
+                else
+                {
+                    document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                }
+                this.NextTurn();
+               
             }
         else if(((this.cells[2].value == this.cells[5].value) &&
-            (this.cells[5].value  == this.cells[8].value)) &&
-            (this.cells[2].value == "X" || this.cells[2].value == "O"))
-            {
-                //code here
+            (this.cells[5].value  == this.cells[8].value))){
+                if(this.cells[2].value == "X")
+                {
+                    document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+                }
+                else
+                {
+                    document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                }
+                this.NextTurn();
+            
             }
         //VERTICAL CHECKING
            
         if(((this.cells[0].value == this.cells[1].value) &&
-            (this.cells[1].value  == this.cells[2].value)) &&
-            (this.cells[0].value == "X" || this.cells[0].value == "O"))
+            (this.cells[1].value  == this.cells[2].value)))
             {
-                //code here            
+                if(this.cells[0].value == "X")
+                {
+                    document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+                }
+                else
+                {
+                    document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                }
+                this.NextTurn();
+                        
             }
         else if(((this.cells[3].value == this.cells[4].value) &&
-            (this.cells[4].value  == this.cells[5].value)) &&
-            (this.cells[3].value == "X" || this.cells[3].value == "O"))
+            (this.cells[4].value  == this.cells[5].value)))
             {
-                 //code here   
+                if(this.cells[3].value == "X")
+                {
+                    document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+                }
+                else
+                {
+                    document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                }
+                this.NextTurn();
+                   
             }
         else if(((this.cells[6].value == this.cells[7].value) &&
-            (this.cells[7].value  == this.cells[8].value)) &&
-            (this.cells[6].value == "X" || this.cells[6].value == "O"))
+            (this.cells[7].value  == this.cells[8].value)))
             {
-                //code here
+                if(this.cells[6].value == "X")
+                {
+                    document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+                }
+                else
+                {
+                    document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                }
+                this.NextTurn();
+            
             }
 
          //DIAGONAL CHECKING
          if(((this.cells[0].value == this.cells[4].value) &&
-            (this.cells[4].value  == this.cells[8].value)) &&
-            (this.cells[0].value == "X" || this.cells[0].value == "O"))
+            (this.cells[4].value  == this.cells[8].value)))
             {
-                console.log(this.cells[0].value + " Wins")
-                alert(this.cells[1].value + " Wins diagonal")
+                if(this.cells[0].value == "X")
+                {
+                    document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+                }
+                else
+                {
+                    document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                }
+                this.NextTurn();
+            
             }
         else if(((this.cells[2].value == this.cells[4].value) &&
-            (this.cells[4].value  == this.cells[6].value)) &&
-            (this.cells[2].value == "X" || this.cells[2].value == "O"))
+            (this.cells[4].value  == this.cells[6].value)))
             {
-                console.log(this.cells[2].value + " Wins")
-                alert(this.cells[2].value + " Wins diagonal")
+                if(this.cells[2].value == "X")
+                {
+                    document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+                }
+                else
+                {
+                    document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                }
+                this.NextTurn();
+            
             }
+        console.log(xPoints , oPoints);
     }
     
     ResetGame()
     {
         this.CreateBoard();
         turnNum = 0;
+        xPoints = 0;
+        oPoints = 0;
+        document.getElementById("xPoints").innerHTML =(xPoints).toString();
+        document.getElementById("oPoints").innerHTML =(oPoints).toString();
+    }
+    NextTurn()
+    {
+        this.CreateBoard();
     }
     CurrentTurn()
     {
         if((turnNum % 2) == 0)
+        {
             document.getElementById("turn").innerHTML = "<p id=\"cross\">X</p>";
+            document.getElementById("cross").style.background = "#afa";
+            setTimeout(() => { document.getElementById("cross").
+            style.background = "#efe"; }, 150);
+        }
         else
-            document.getElementById("turn").innerHTML = "<p id=\"circle\">O</p>";            
-
+        {
+            document.getElementById("turn").innerHTML = "<p id=\"circle\">O</p>";
+            document.getElementById("circle").style.background = "#faa";
+            setTimeout(() => { document.getElementById("circle").
+            style.background = "#fee"; }, 150)  ;          
+        }
     }
 
     StartGame()
