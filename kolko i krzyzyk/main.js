@@ -44,8 +44,10 @@ var Board = /** @class */ (function () {
             var i = _a[_i];
             if ((i.value == "X") || (i.value == "O"))
                 iterable++;
-            if (iterable == 9)
+            if (iterable == 9) {
+                this.StillRunning();
                 this.NextTurn();
+            }
             console.log(iterable);
         }
     };

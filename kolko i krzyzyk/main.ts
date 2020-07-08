@@ -49,7 +49,10 @@ class Board
             if((i.value == "X") || (i.value == "O"))
                 iterable++;
             if(iterable == 9)
+            {
+                this.StillRunning();
                 this.NextTurn();
+            }
             console.log(iterable);
         }
     }
