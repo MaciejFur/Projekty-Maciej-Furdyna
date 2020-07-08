@@ -1,188 +1,165 @@
-let currentId : number;
+
+/*gameType :: 1 for players, 0 for computer
+
+
+
+*/
+let currentPlayer : string[] = ['X', 'O'];
+let turnNum : number = 0;
+
+class Cell
+{
+    private _value : string;
+    constructor(value : string)
+    {
+        this._value = value;
+    }
+
+    
+    get value() : string{
+        return this._value;
+    }
+    set value(value : string){
+        this._value = value;
+    }
+
+    
+
+
+}
 class Board
 {
-    cellBoard: Cell[] = [];
-    gameRunning : boolean = true;
-    gameType : number;
-    players : string[] = ['X','O'];
-    currentPlayer : string;
-    //gameType :: 1 for players, 0 for computer
+    cells : Cell[] = [];
 
+    Placevalue(index : number)
+    {
+        let value : string = currentPlayer[turnNum % 2];
+        document.getElementById("cell" + index).innerHTML = value; 
+        this.cells[index].value = value;
+        turnNum++;
+        console.log(this.cells);
+
+
+    }
     CreateBoard()
     {
-        let cellContainer : HTMLElement 
-        = document.getElementById("cellContainer");
-            for(let i:number = 0; i < 9; ++i)
-            {
-                
-                cellContainer.innerHTML +=
-                ("<div id=\""+ i +"\" class=\"signleCell\">"+ i +"</div>");
-                
-                this.cellBoard[i] = new Cell(i.toString());
-            }
-            for(let i:number = 0; i < 9; i++)
-            {
-                let value = this.cellBoard[i];
-                let valueId = document.getElementById(value._id);
-                valueId.addEventListener("click", (e:Event) => {
-                    value.PlaceSign();
-                    this.StillRunning();
-                    this.CurrentTurn();
-                    
-                });
-            }
-    }
-    StartGame()
-    {
-        if(this.currentPlayer == null)
-        {
-            this.currentPlayer = 
-            this.players[Math.floor(Math.random()*2)];
+        let cellContainer : HTMLElement =
+            document.getElementById("cellContainer");
 
-        }
-    }
-    ResetGame()
-    {
-        this.cellBoard = [];
-        document.getElementById("cellContainer").innerHTML = "";
-        this.CreateBoard();
-    }
-    CurrentTurn()
-    {
-        if(this.currentPlayer == "X")
-        {
-            document.getElementById("turn").innerHTML =
-             "<p id=\"cross\">X</p>";
-            this.cellBoard[currentId].sign = "X";
-            this.currentPlayer = "O";
-
-        }
-        else if(this.currentPlayer == "O")
-        {
-            document.getElementById("turn").innerHTML =
-             "<p id=\"circle\">O</p>";
-             this.cellBoard[currentId].sign = "O";
-             this.currentPlayer = "X";
-
-        }
-        this.StillRunning();
-    }
-    PlayerSelect()
-    {
+        cellContainer.innerHTML = "";
         
+        
+        
+        for(let i:number = 0; i < 9; ++i)
+        {
+            this.cells[this.cells.length] = new Cell(i.toString());
+
+            cellContainer.innerHTML +=
+            ("<div id=\"cell"+ i +
+            "\" class=\"valueleCell\">" + this.cells[i].value +
+            "</div>");
+            
+            
+        }
+        for(let i:number = 0; i < 9; i++)
+        {
+            let valueId = document.getElementById("cell" + i);
+            valueId.addEventListener("click",(e:Event) => {
+                this.Placevalue(i);
+                this.CurrentTurn();
+                this.StillRunning();
+                
+            });
+        }
+        console.log(this.cells);
     }
     StillRunning()
     {
         
         //HORIZONTAL CHECKING
-        if(((this.cellBoard[0].sign == this.cellBoard[3].sign) &&
-            (this.cellBoard[3].sign  == this.cellBoard[6].sign)) &&
-            (this.cellBoard[0].sign == "X" || this.cellBoard[0].sign == "O"))
+        if(((this.cells[0].value == this.cells[3].value) &&
+            (this.cells[3].value  == this.cells[6].value)) &&
+            (this.cells[0].value == "X" || this.cells[0].value == "O"))
             {
-                console.log(this.cellBoard[0].sign + " Wins")
-                alert(this.cellBoard[0].sign + " Wins horizontal " +
-                 this.cellBoard[0].sign + this.cellBoard[3].sign +this.cellBoard[6].sign)
-
+                //code here
             }
-        else if(((this.cellBoard[1].sign == this.cellBoard[4].sign) &&
-            (this.cellBoard[4].sign  == this.cellBoard[7].sign)) &&
-            (this.cellBoard[1].sign == "X" || this.cellBoard[1].sign == "O"))
+        else if(((this.cells[1].value == this.cells[4].value) &&
+            (this.cells[4].value  == this.cells[7].value)) &&
+            (this.cells[1].value == "X" || this.cells[1].value == "O"))
             {
-                console.log(this.cellBoard[1].sign + " Wins")
-                alert(this.cellBoard[1].sign + " Wins horizontal " +
-                this.cellBoard[1].sign + this.cellBoard[4].sign + this.cellBoard[7].sign)
+                //code here   
             }
-        else if(((this.cellBoard[2].sign == this.cellBoard[5].sign) &&
-            (this.cellBoard[5].sign  == this.cellBoard[8].sign)) &&
-            (this.cellBoard[2].sign == "X" || this.cellBoard[2].sign == "O"))
+        else if(((this.cells[2].value == this.cells[5].value) &&
+            (this.cells[5].value  == this.cells[8].value)) &&
+            (this.cells[2].value == "X" || this.cells[2].value == "O"))
             {
-                console.log(this.cellBoard[2].sign + " Wins")
-                alert(this.cellBoard[2].sign + " Wins horizontal" +
-                this.cellBoard[2].sign + this.cellBoard[5].sign + this.cellBoard[8].sign)
+                //code here
             }
         //VERTICAL CHECKING
            
-        if(((this.cellBoard[0].sign == this.cellBoard[1].sign) &&
-            (this.cellBoard[1].sign  == this.cellBoard[2].sign)) &&
-            (this.cellBoard[0].sign == "X" || this.cellBoard[0].sign == "O"))
+        if(((this.cells[0].value == this.cells[1].value) &&
+            (this.cells[1].value  == this.cells[2].value)) &&
+            (this.cells[0].value == "X" || this.cells[0].value == "O"))
             {
-                console.log(this.cellBoard[0].sign + " Wins")
-                alert(this.cellBoard[0].sign + " Wins vertical" +
-                this.cellBoard[0].sign + this.cellBoard[1].sign + this.cellBoard[2].sign)
+                //code here            
             }
-        else if(((this.cellBoard[3].sign == this.cellBoard[4].sign) &&
-            (this.cellBoard[4].sign  == this.cellBoard[5].sign)) &&
-            (this.cellBoard[3].sign == "X" || this.cellBoard[3].sign == "O"))
+        else if(((this.cells[3].value == this.cells[4].value) &&
+            (this.cells[4].value  == this.cells[5].value)) &&
+            (this.cells[3].value == "X" || this.cells[3].value == "O"))
             {
-                console.log(this.cellBoard[3].sign + " Wins")
-                alert(this.cellBoard[3].sign + " Wins vertical" +
-                this.cellBoard[3].sign + this.cellBoard[4].sign + this.cellBoard[5].sign)
+                 //code here   
             }
-        else if(((this.cellBoard[6].sign == this.cellBoard[7].sign) &&
-            (this.cellBoard[7].sign  == this.cellBoard[8].sign)) &&
-            (this.cellBoard[6].sign == "X" || this.cellBoard[6].sign == "O"))
+        else if(((this.cells[6].value == this.cells[7].value) &&
+            (this.cells[7].value  == this.cells[8].value)) &&
+            (this.cells[6].value == "X" || this.cells[6].value == "O"))
             {
-                console.log(this.cellBoard[6].sign + " Wins")
-                alert(this.cellBoard[6].sign + " Wins vertical" +
-                this.cellBoard[6].sign + this.cellBoard[7].sign + this.cellBoard[8].sign)
+                //code here
             }
 
          //DIAGONAL CHECKING
-         if(((this.cellBoard[0].sign == this.cellBoard[4].sign) &&
-            (this.cellBoard[4].sign  == this.cellBoard[8].sign)) &&
-            (this.cellBoard[0].sign == "X" || this.cellBoard[0].sign == "O"))
+         if(((this.cells[0].value == this.cells[4].value) &&
+            (this.cells[4].value  == this.cells[8].value)) &&
+            (this.cells[0].value == "X" || this.cells[0].value == "O"))
             {
-                console.log(this.cellBoard[0].sign + " Wins")
-                alert(this.cellBoard[1].sign + " Wins diagonal")
+                console.log(this.cells[0].value + " Wins")
+                alert(this.cells[1].value + " Wins diagonal")
             }
-        else if(((this.cellBoard[2].sign == this.cellBoard[4].sign) &&
-            (this.cellBoard[4].sign  == this.cellBoard[6].sign)) &&
-            (this.cellBoard[2].sign == "X" || this.cellBoard[2].sign == "O"))
+        else if(((this.cells[2].value == this.cells[4].value) &&
+            (this.cells[4].value  == this.cells[6].value)) &&
+            (this.cells[2].value == "X" || this.cells[2].value == "O"))
             {
-                console.log(this.cellBoard[2].sign + " Wins")
-                alert(this.cellBoard[2].sign + " Wins diagonal")
+                console.log(this.cells[2].value + " Wins")
+                alert(this.cells[2].value + " Wins diagonal")
             }
-    }
-
-}
-class Cell
-{    
-    constructor(private id : string)
-    {
-        this._id = this.id;
-    }
-    _id :string;
-    private _sign: string;
-    get sign() : string
-    {
-        return this._sign;
-    }
-    set sign(sign : string)
-    {
-        this._sign = sign;
-    }
-    PlaceSign()
-    {
-        if(this._sign != undefined)
-        {   
-            currentId = parseInt(this._id);
-            document.getElementById(this._id).innerHTML = this._sign;
-            
-            console.log("Current ID = " + this._id);
-            console.log("Current Sign = " + this._sign);
-        }   
     }
     
+    ResetGame()
+    {
+        this.CreateBoard();
+        turnNum = 0;
+    }
+    CurrentTurn()
+    {
+        if((turnNum % 2) == 0)
+            document.getElementById("turn").innerHTML = "<p id=\"cross\">X</p>";
+        else
+            document.getElementById("turn").innerHTML = "<p id=\"circle\">O</p>";            
+
+    }
+
+    StartGame()
+    {}
 }
-//addEventListener('click', clickHandler);
 window.onload = () => 
 {
     let playBoard : Board = new Board;
     playBoard.CreateBoard();
-    console.log("current player is:" + playBoard.currentPlayer)
+    //console.log("current player is:" + playBoard.currentPlayer)
     playBoard.StartGame();
+    playBoard.CurrentTurn();
     
     let reset: HTMLElement = document.getElementById("reset");
     reset.onclick = (e) => {playBoard.ResetGame();}
-    console.log(playBoard.cellBoard)
+
+
 }

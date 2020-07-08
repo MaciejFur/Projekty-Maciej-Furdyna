@@ -1,155 +1,128 @@
-var currentId;
-var Board = /** @class */ (function () {
-    function Board() {
-        this.cellBoard = [];
-        this.gameRunning = true;
-        this.players = ['X', 'O'];
-    }
-    //gameType :: 1 for players, 0 for computer
-    Board.prototype.CreateBoard = function () {
-        var _this = this;
-        var cellContainer = document.getElementById("cellContainer");
-        for (var i = 0; i < 9; ++i) {
-            cellContainer.innerHTML +=
-                ("<div id=\"" + i + "\" class=\"signleCell\">" + i + "</div>");
-            this.cellBoard[i] = new Cell(i.toString());
-        }
-        var _loop_1 = function (i) {
-            var value = this_1.cellBoard[i];
-            var valueId = document.getElementById(value._id);
-            valueId.addEventListener("click", function (e) {
-                value.PlaceSign();
-                _this.StillRunning();
-                _this.CurrentTurn();
-            });
-        };
-        var this_1 = this;
-        for (var i = 0; i < 9; i++) {
-            _loop_1(i);
-        }
-    };
-    Board.prototype.StartGame = function () {
-        if (this.currentPlayer == null) {
-            this.currentPlayer =
-                this.players[Math.floor(Math.random() * 2)];
-        }
-    };
-    Board.prototype.ResetGame = function () {
-        this.cellBoard = [];
-        document.getElementById("cellContainer").innerHTML = "";
-        this.CreateBoard();
-    };
-    Board.prototype.CurrentTurn = function () {
-        if (this.currentPlayer == "X") {
-            document.getElementById("turn").innerHTML =
-                "<p id=\"cross\">X</p>";
-            this.cellBoard[currentId].sign = "X";
-            this.currentPlayer = "O";
-        }
-        else if (this.currentPlayer == "O") {
-            document.getElementById("turn").innerHTML =
-                "<p id=\"circle\">O</p>";
-            this.cellBoard[currentId].sign = "O";
-            this.currentPlayer = "X";
-        }
-        this.StillRunning();
-    };
-    Board.prototype.PlayerSelect = function () {
-    };
-    Board.prototype.StillRunning = function () {
-        //HORIZONTAL CHECKING
-        if (((this.cellBoard[0].sign == this.cellBoard[3].sign) &&
-            (this.cellBoard[3].sign == this.cellBoard[6].sign)) &&
-            (this.cellBoard[0].sign == "X" || this.cellBoard[0].sign == "O")) {
-            console.log(this.cellBoard[0].sign + " Wins");
-            alert(this.cellBoard[0].sign + " Wins horizontal " +
-                this.cellBoard[0].sign + this.cellBoard[3].sign + this.cellBoard[6].sign);
-        }
-        else if (((this.cellBoard[1].sign == this.cellBoard[4].sign) &&
-            (this.cellBoard[4].sign == this.cellBoard[7].sign)) &&
-            (this.cellBoard[1].sign == "X" || this.cellBoard[1].sign == "O")) {
-            console.log(this.cellBoard[1].sign + " Wins");
-            alert(this.cellBoard[1].sign + " Wins horizontal " +
-                this.cellBoard[1].sign + this.cellBoard[4].sign + this.cellBoard[7].sign);
-        }
-        else if (((this.cellBoard[2].sign == this.cellBoard[5].sign) &&
-            (this.cellBoard[5].sign == this.cellBoard[8].sign)) &&
-            (this.cellBoard[2].sign == "X" || this.cellBoard[2].sign == "O")) {
-            console.log(this.cellBoard[2].sign + " Wins");
-            alert(this.cellBoard[2].sign + " Wins horizontal" +
-                this.cellBoard[2].sign + this.cellBoard[5].sign + this.cellBoard[8].sign);
-        }
-        //VERTICAL CHECKING
-        if (((this.cellBoard[0].sign == this.cellBoard[1].sign) &&
-            (this.cellBoard[1].sign == this.cellBoard[2].sign)) &&
-            (this.cellBoard[0].sign == "X" || this.cellBoard[0].sign == "O")) {
-            console.log(this.cellBoard[0].sign + " Wins");
-            alert(this.cellBoard[0].sign + " Wins vertical" +
-                this.cellBoard[0].sign + this.cellBoard[1].sign + this.cellBoard[2].sign);
-        }
-        else if (((this.cellBoard[3].sign == this.cellBoard[4].sign) &&
-            (this.cellBoard[4].sign == this.cellBoard[5].sign)) &&
-            (this.cellBoard[3].sign == "X" || this.cellBoard[3].sign == "O")) {
-            console.log(this.cellBoard[3].sign + " Wins");
-            alert(this.cellBoard[3].sign + " Wins vertical" +
-                this.cellBoard[3].sign + this.cellBoard[4].sign + this.cellBoard[5].sign);
-        }
-        else if (((this.cellBoard[6].sign == this.cellBoard[7].sign) &&
-            (this.cellBoard[7].sign == this.cellBoard[8].sign)) &&
-            (this.cellBoard[6].sign == "X" || this.cellBoard[6].sign == "O")) {
-            console.log(this.cellBoard[6].sign + " Wins");
-            alert(this.cellBoard[6].sign + " Wins vertical" +
-                this.cellBoard[6].sign + this.cellBoard[7].sign + this.cellBoard[8].sign);
-        }
-        //DIAGONAL CHECKING
-        if (((this.cellBoard[0].sign == this.cellBoard[4].sign) &&
-            (this.cellBoard[4].sign == this.cellBoard[8].sign)) &&
-            (this.cellBoard[0].sign == "X" || this.cellBoard[0].sign == "O")) {
-            console.log(this.cellBoard[0].sign + " Wins");
-            alert(this.cellBoard[1].sign + " Wins diagonal");
-        }
-        else if (((this.cellBoard[2].sign == this.cellBoard[4].sign) &&
-            (this.cellBoard[4].sign == this.cellBoard[6].sign)) &&
-            (this.cellBoard[2].sign == "X" || this.cellBoard[2].sign == "O")) {
-            console.log(this.cellBoard[2].sign + " Wins");
-            alert(this.cellBoard[2].sign + " Wins diagonal");
-        }
-    };
-    return Board;
-}());
+/*gameType :: 1 for players, 0 for computer
+
+
+
+*/
+var currentPlayer = ['X', 'O'];
+var turnNum = 0;
 var Cell = /** @class */ (function () {
-    function Cell(id) {
-        this.id = id;
-        this._id = this.id;
+    function Cell(value) {
+        this._value = value;
     }
-    Object.defineProperty(Cell.prototype, "sign", {
+    Object.defineProperty(Cell.prototype, "value", {
         get: function () {
-            return this._sign;
+            return this._value;
         },
-        set: function (sign) {
-            this._sign = sign;
+        set: function (value) {
+            this._value = value;
         },
         enumerable: true,
         configurable: true
     });
-    Cell.prototype.PlaceSign = function () {
-        if (this._sign != undefined) {
-            currentId = parseInt(this._id);
-            document.getElementById(this._id).innerHTML = this._sign;
-            console.log("Current ID = " + this._id);
-            console.log("Current Sign = " + this._sign);
-        }
-    };
     return Cell;
 }());
-//addEventListener('click', clickHandler);
+var Board = /** @class */ (function () {
+    function Board() {
+        this.cells = [];
+    }
+    Board.prototype.Placevalue = function (index) {
+        var value = currentPlayer[turnNum % 2];
+        document.getElementById("cell" + index).innerHTML = value;
+        this.cells[index].value = value;
+        turnNum++;
+        console.log(this.cells);
+    };
+    Board.prototype.CreateBoard = function () {
+        var _this = this;
+        var cellContainer = document.getElementById("cellContainer");
+        cellContainer.innerHTML = "";
+        for (var i = 0; i < 9; ++i) {
+            this.cells[this.cells.length] = new Cell(i.toString());
+            cellContainer.innerHTML +=
+                ("<div id=\"cell" + i +
+                    "\" class=\"valueleCell\">" + this.cells[i].value +
+                    "</div>");
+        }
+        var _loop_1 = function (i) {
+            var valueId = document.getElementById("cell" + i);
+            valueId.addEventListener("click", function (e) {
+                _this.Placevalue(i);
+                _this.CurrentTurn();
+                _this.StillRunning();
+            });
+        };
+        for (var i = 0; i < 9; i++) {
+            _loop_1(i);
+        }
+        console.log(this.cells);
+    };
+    Board.prototype.StillRunning = function () {
+        //HORIZONTAL CHECKING
+        if (((this.cells[0].value == this.cells[3].value) &&
+            (this.cells[3].value == this.cells[6].value)) &&
+            (this.cells[0].value == "X" || this.cells[0].value == "O")) {
+            //code here
+        }
+        else if (((this.cells[1].value == this.cells[4].value) &&
+            (this.cells[4].value == this.cells[7].value)) &&
+            (this.cells[1].value == "X" || this.cells[1].value == "O")) {
+            //code here   
+        }
+        else if (((this.cells[2].value == this.cells[5].value) &&
+            (this.cells[5].value == this.cells[8].value)) &&
+            (this.cells[2].value == "X" || this.cells[2].value == "O")) {
+            //code here
+        }
+        //VERTICAL CHECKING
+        if (((this.cells[0].value == this.cells[1].value) &&
+            (this.cells[1].value == this.cells[2].value)) &&
+            (this.cells[0].value == "X" || this.cells[0].value == "O")) {
+            //code here            
+        }
+        else if (((this.cells[3].value == this.cells[4].value) &&
+            (this.cells[4].value == this.cells[5].value)) &&
+            (this.cells[3].value == "X" || this.cells[3].value == "O")) {
+            //code here   
+        }
+        else if (((this.cells[6].value == this.cells[7].value) &&
+            (this.cells[7].value == this.cells[8].value)) &&
+            (this.cells[6].value == "X" || this.cells[6].value == "O")) {
+            //code here
+        }
+        //DIAGONAL CHECKING
+        if (((this.cells[0].value == this.cells[4].value) &&
+            (this.cells[4].value == this.cells[8].value)) &&
+            (this.cells[0].value == "X" || this.cells[0].value == "O")) {
+            console.log(this.cells[0].value + " Wins");
+            alert(this.cells[1].value + " Wins diagonal");
+        }
+        else if (((this.cells[2].value == this.cells[4].value) &&
+            (this.cells[4].value == this.cells[6].value)) &&
+            (this.cells[2].value == "X" || this.cells[2].value == "O")) {
+            console.log(this.cells[2].value + " Wins");
+            alert(this.cells[2].value + " Wins diagonal");
+        }
+    };
+    Board.prototype.ResetGame = function () {
+        this.CreateBoard();
+        turnNum = 0;
+    };
+    Board.prototype.CurrentTurn = function () {
+        if ((turnNum % 2) == 0)
+            document.getElementById("turn").innerHTML = "<p id=\"cross\">X</p>";
+        else
+            document.getElementById("turn").innerHTML = "<p id=\"circle\">O</p>";
+    };
+    Board.prototype.StartGame = function () { };
+    return Board;
+}());
 window.onload = function () {
     var playBoard = new Board;
     playBoard.CreateBoard();
-    console.log("current player is:" + playBoard.currentPlayer);
+    //console.log("current player is:" + playBoard.currentPlayer)
     playBoard.StartGame();
+    playBoard.CurrentTurn();
     var reset = document.getElementById("reset");
     reset.onclick = function (e) { playBoard.ResetGame(); };
-    console.log(playBoard.cellBoard);
 };
 //# sourceMappingURL=main.js.map
