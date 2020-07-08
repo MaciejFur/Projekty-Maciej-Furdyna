@@ -145,11 +145,14 @@ p#cross:hover{
 }
 div.cells > div {
     text-align: center;
-    color:#ddd;
+    color:#000;
     border: 0.15rem #000 solid;
     background:#fff;
     padding-top: 3rem;
     font-size: 3rem;
+}
+div.cells > div > span{
+    color:#efefef;
 }
 /*Footer*/
 div#footer{

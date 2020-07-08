@@ -1,8 +1,3 @@
-/*gameType :: 1 for players, 0 for computer
-
-
-
-*/
 function sleep(milliseconds) {
     var date = Date.now();
     var currentDate = null;
@@ -16,6 +11,7 @@ var xPoints = 0;
 var oPoints = 0;
 var Cell = /** @class */ (function () {
     function Cell(value) {
+        this._selected = false;
         this._value = value;
     }
     Object.defineProperty(Cell.prototype, "value", {
@@ -23,7 +19,10 @@ var Cell = /** @class */ (function () {
             return this._value;
         },
         set: function (value) {
-            this._value = value;
+            if (this._selected == false) {
+                this._value = value;
+                this._selected = true;
+            }
         },
         enumerable: true,
         configurable: true
@@ -36,10 +35,19 @@ var Board = /** @class */ (function () {
     }
     Board.prototype.Placevalue = function (index) {
         var value = currentPlayer[turnNum % 2];
-        document.getElementById("cell" + index).innerHTML = value;
         this.cells[index].value = value;
+        document.getElementById("cell" + index).innerHTML = this.cells[index].value;
         turnNum++;
         console.log(this.cells);
+        var iterable = 0;
+        for (var _i = 0, _a = this.cells; _i < _a.length; _i++) {
+            var i = _a[_i];
+            if ((i.value == "X") || (i.value == "O"))
+                iterable++;
+            if (iterable == 9)
+                this.NextTurn();
+            console.log(iterable);
+        }
     };
     Board.prototype.CreateBoard = function () {
         var _this = this;
@@ -50,8 +58,8 @@ var Board = /** @class */ (function () {
             this.cells[this.cells.length] = new Cell(i.toString());
             cellContainer.innerHTML +=
                 ("<div id=\"cell" + i +
-                    "\" class=\"valueleCell\">" + this.cells[i].value +
-                    "</div>");
+                    "\" class=\"valueleCell\"><span>" + (parseInt(this.cells[i].value) + 1) +
+                    "</span></div>");
         }
         var _loop_1 = function (i) {
             var valueId = document.getElementById("cell" + i);
@@ -181,16 +189,26 @@ var Board = /** @class */ (function () {
             }, 150);
         }
     };
-    Board.prototype.StartGame = function () { };
     return Board;
 }());
 window.onload = function () {
     var playBoard = new Board;
     playBoard.CreateBoard();
-    //console.log("current player is:" + playBoard.currentPlayer)
-    playBoard.StartGame();
     playBoard.CurrentTurn();
     var reset = document.getElementById("reset");
     reset.onclick = function (e) { playBoard.ResetGame(); };
+    document.addEventListener("keypress", function (event) {
+        var keysArray = [49, 50, 51, 52, 53, 54, 55, 56, 57, 58];
+        if (event.keyCode >= 48 && event.keyCode <= 57) {
+            var keyIndex = keysArray.indexOf(event.keyCode);
+            var value = currentPlayer[turnNum % 2];
+            playBoard.cells[keyIndex].value = value;
+            document.getElementById("cell" + keyIndex).innerHTML = playBoard.cells[keyIndex].value;
+            turnNum++;
+            console.log(keyIndex);
+            playBoard.CurrentTurn();
+            playBoard.StillRunning();
+        }
+    });
 };
 //# sourceMappingURL=main.js.map

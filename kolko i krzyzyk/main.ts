@@ -1,10 +1,3 @@
-
-/*gameType :: 1 for players, 0 for computer
-
-
-
-*/
-
 function sleep(milliseconds) 
 {
     const date = Date.now();
@@ -22,17 +15,20 @@ let oPoints : number = 0;
 class Cell
 {
     private _value : string;
+    private _selected : boolean = false;
     constructor(value : string)
     {
         this._value = value;
     }
-
-    
     get value() : string{
         return this._value;
     }
     set value(value : string){
-        this._value = value;
+        if(this._selected == false)
+        {
+            this._value = value;
+            this._selected = true;
+        }
     }
 }
 class Board
@@ -42,12 +38,20 @@ class Board
     Placevalue(index : number)
     {
         let value : string = currentPlayer[turnNum % 2];
-        document.getElementById("cell" + index).innerHTML = value; 
         this.cells[index].value = value;
+        document.getElementById("cell" + index).innerHTML = this.cells[index].value;
         turnNum++;
         console.log(this.cells);
-
-
+        
+        let iterable : number = 0;
+        for(let i of this.cells)
+        {
+            if((i.value == "X") || (i.value == "O"))
+                iterable++;
+            if(iterable == 9)
+                this.NextTurn();
+            console.log(iterable);
+        }
     }
     CreateBoard()
     {
@@ -64,10 +68,8 @@ class Board
 
             cellContainer.innerHTML +=
             ("<div id=\"cell"+ i +
-            "\" class=\"valueleCell\">" + this.cells[i].value +
-            "</div>");
-            
-            
+            "\" class=\"valueleCell\"><span>" + (parseInt(this.cells[i].value) + 1) +
+            "</span></div>"); 
         }
         for(let i:number = 0; i < 9; i++)
         {
@@ -76,7 +78,6 @@ class Board
                 this.Placevalue(i);
                 this.CurrentTurn();
                 this.StillRunning();
-                
             });
         }
         console.log(this.cells);
@@ -202,7 +203,6 @@ class Board
             }
         console.log(xPoints , oPoints);
     }
-    
     ResetGame()
     {
         this.CreateBoard();
@@ -233,20 +233,32 @@ class Board
             style.background = "#fee"; }, 150)  ;          
         }
     }
-
-    StartGame()
-    {}
 }
 window.onload = () => 
 {
     let playBoard : Board = new Board;
     playBoard.CreateBoard();
-    //console.log("current player is:" + playBoard.currentPlayer)
-    playBoard.StartGame();
     playBoard.CurrentTurn();
     
     let reset: HTMLElement = document.getElementById("reset");
-    reset.onclick = (e) => {playBoard.ResetGame();}
+    reset.onclick = (e) => {playBoard.ResetGame()};
+    
+    document.addEventListener("keypress", function(event) {
+        
+        let keysArray : number[] = [49,50,51,52,53,54,55,56,57,58];
+        if (event.keyCode >= 48 && event.keyCode <= 57 ) 
+        {
+            let keyIndex : number = keysArray.indexOf(event.keyCode)
 
+            let value : string = currentPlayer[turnNum % 2]; 
+            playBoard.cells[keyIndex].value = value;
+            document.getElementById("cell" + keyIndex).innerHTML = playBoard.cells[keyIndex].value;
+            turnNum++;
+            console.log(keyIndex);
+            
+            playBoard.CurrentTurn();
+            playBoard.StillRunning();
+        }
+      });
 
 }
