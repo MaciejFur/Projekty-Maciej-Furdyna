@@ -135,6 +135,12 @@ p#cross:hover{
     background:#afa;
 }
 /*Cells*/
+.cells > p{
+    text-align: center;
+    font-size: 300%;
+    color: #fff;
+    width: 100%;
+}
 .cells{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

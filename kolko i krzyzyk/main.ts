@@ -7,7 +7,7 @@ function sleep(milliseconds)
     } while (currentDate - date < milliseconds);
 }
 
-let currentPlayer : string[] = ['X', 'O'];
+let currentPlayer : string[] = ['O', 'X'];
 let turnNum : number = 0;
 let xPoints : number = 0;
 let oPoints : number = 0;
@@ -37,12 +37,15 @@ class Board
 
     Placevalue(index : number)
     {
+        
+        if((this.cells[index].value != "X") && (this.cells[index].value != "O"))
+        {
+            ++turnNum;
+        }
         let value : string = currentPlayer[turnNum % 2];
         this.cells[index].value = value;
         document.getElementById("cell" + index).innerHTML = this.cells[index].value;
-        turnNum++;
-        console.log(this.cells);
-        
+
         let iterable : number = 0;
         for(let i of this.cells)
         {
@@ -51,7 +54,7 @@ class Board
             if(iterable == 9)
             {
                 this.StillRunning();
-                this.NextTurn();
+                this.CreateBoard()
             }
             console.log(iterable);
         }
@@ -95,10 +98,18 @@ class Board
                 if(this.cells[0].value == "X")
                 {
                     document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+
+                    document.getElementById("xPoints").style.background = "#afa";
+                    setTimeout(() => { document.getElementById("xPoints").
+                    style.background = "#efe"; }, 200);
                 }
                 else
                 {
                     document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                    
+                    document.getElementById("oPoints").style.background = "#faa";
+                    setTimeout(() => { document.getElementById("oPoints").
+                    style.background = "#fee"; }, 200);
                 }
                 this.NextTurn();
             
@@ -109,10 +120,18 @@ class Board
                 if(this.cells[1].value == "X")
                 {
                     document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+
+                    document.getElementById("xPoints").style.background = "#afa";
+                    setTimeout(() => { document.getElementById("xPoints").
+                    style.background = "#efe"; }, 200);
                 }
                 else
                 {
                     document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                    
+                    document.getElementById("oPoints").style.background = "#faa";
+                    setTimeout(() => { document.getElementById("oPoints").
+                    style.background = "#fee"; }, 200);
                 }
                 this.NextTurn();
                
@@ -122,10 +141,18 @@ class Board
                 if(this.cells[2].value == "X")
                 {
                     document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+
+                    document.getElementById("xPoints").style.background = "#afa";
+                    setTimeout(() => { document.getElementById("xPoints").
+                    style.background = "#efe"; }, 200);
                 }
                 else
                 {
                     document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                    
+                    document.getElementById("oPoints").style.background = "#faa";
+                    setTimeout(() => { document.getElementById("oPoints").
+                    style.background = "#fee"; }, 200);
                 }
                 this.NextTurn();
             
@@ -138,10 +165,18 @@ class Board
                 if(this.cells[0].value == "X")
                 {
                     document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+
+                    document.getElementById("xPoints").style.background = "#afa";
+                    setTimeout(() => { document.getElementById("xPoints").
+                    style.background = "#efe"; }, 200);
                 }
                 else
                 {
                     document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                    
+                    document.getElementById("oPoints").style.background = "#faa";
+                    setTimeout(() => { document.getElementById("oPoints").
+                    style.background = "#fee"; }, 200);
                 }
                 this.NextTurn();
                         
@@ -152,10 +187,18 @@ class Board
                 if(this.cells[3].value == "X")
                 {
                     document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+
+                    document.getElementById("xPoints").style.background = "#afa";
+                    setTimeout(() => { document.getElementById("xPoints").
+                    style.background = "#efe"; }, 200);
                 }
                 else
                 {
                     document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                    
+                    document.getElementById("oPoints").style.background = "#faa";
+                    setTimeout(() => { document.getElementById("oPoints").
+                    style.background = "#fee"; }, 200);
                 }
                 this.NextTurn();
                    
@@ -166,10 +209,18 @@ class Board
                 if(this.cells[6].value == "X")
                 {
                     document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+
+                    document.getElementById("xPoints").style.background = "#afa";
+                    setTimeout(() => { document.getElementById("xPoints").
+                    style.background = "#efe"; }, 200);
                 }
                 else
                 {
                     document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                    
+                    document.getElementById("oPoints").style.background = "#faa";
+                    setTimeout(() => { document.getElementById("oPoints").
+                    style.background = "#fee"; }, 200);
                 }
                 this.NextTurn();
             
@@ -182,10 +233,18 @@ class Board
                 if(this.cells[0].value == "X")
                 {
                     document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+
+                    document.getElementById("xPoints").style.background = "#afa";
+                    setTimeout(() => { document.getElementById("xPoints").
+                    style.background = "#efe"; }, 200);
                 }
                 else
                 {
                     document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                    
+                    document.getElementById("oPoints").style.background = "#faa";
+                    setTimeout(() => { document.getElementById("oPoints").
+                    style.background = "#fee"; }, 200);
                 }
                 this.NextTurn();
             
@@ -196,10 +255,18 @@ class Board
                 if(this.cells[2].value == "X")
                 {
                     document.getElementById("xPoints").innerHTML =(++xPoints).toString();
+
+                    document.getElementById("xPoints").style.background = "#afa";
+                    setTimeout(() => { document.getElementById("xPoints").
+                    style.background = "#efe"; }, 200);
                 }
                 else
                 {
                     document.getElementById("oPoints").innerHTML =(++oPoints).toString();
+                    
+                    document.getElementById("oPoints").style.background = "#faa";
+                    setTimeout(() => { document.getElementById("oPoints").
+                    style.background = "#fee"; }, 200);
                 }
                 this.NextTurn();
             
@@ -249,18 +316,22 @@ window.onload = () =>
     document.addEventListener("keypress", function(event) {
         
         let keysArray : number[] = [49,50,51,52,53,54,55,56,57,58];
+        let keyIndex : number = keysArray.indexOf(event.keyCode)
+
         if (event.keyCode >= 48 && event.keyCode <= 57 ) 
         {
-            let keyIndex : number = keysArray.indexOf(event.keyCode)
-
-            let value : string = currentPlayer[turnNum % 2]; 
-            playBoard.cells[keyIndex].value = value;
-            document.getElementById("cell" + keyIndex).innerHTML = playBoard.cells[keyIndex].value;
-            turnNum++;
-            console.log(keyIndex);
-            
-            playBoard.CurrentTurn();
-            playBoard.StillRunning();
+                if((playBoard.cells[keyIndex].value != "X") && (playBoard.cells[keyIndex].value != "O"))
+                {
+                    ++turnNum;
+                }
+                let value : string = currentPlayer[turnNum % 2]; 
+                playBoard.cells[keyIndex].value = value;
+                document.getElementById("cell" + keyIndex).innerHTML = playBoard.cells[keyIndex].value;
+                
+                console.log(keyIndex);
+                
+                playBoard.CurrentTurn();
+                playBoard.StillRunning();
         }
       });
 

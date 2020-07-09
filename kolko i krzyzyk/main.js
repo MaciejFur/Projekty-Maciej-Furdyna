@@ -5,7 +5,7 @@ function sleep(milliseconds) {
         currentDate = Date.now();
     } while (currentDate - date < milliseconds);
 }
-var currentPlayer = ['X', 'O'];
+var currentPlayer = ['O', 'X'];
 var turnNum = 0;
 var xPoints = 0;
 var oPoints = 0;
@@ -34,11 +34,12 @@ var Board = /** @class */ (function () {
         this.cells = [];
     }
     Board.prototype.Placevalue = function (index) {
+        if ((this.cells[index].value != "X") && (this.cells[index].value != "O")) {
+            ++turnNum;
+        }
         var value = currentPlayer[turnNum % 2];
         this.cells[index].value = value;
         document.getElementById("cell" + index).innerHTML = this.cells[index].value;
-        turnNum++;
-        console.log(this.cells);
         var iterable = 0;
         for (var _i = 0, _a = this.cells; _i < _a.length; _i++) {
             var i = _a[_i];
@@ -46,7 +47,7 @@ var Board = /** @class */ (function () {
                 iterable++;
             if (iterable == 9) {
                 this.StillRunning();
-                this.NextTurn();
+                this.CreateBoard();
             }
             console.log(iterable);
         }
@@ -82,9 +83,19 @@ var Board = /** @class */ (function () {
             (this.cells[3].value == this.cells[6].value))) {
             if (this.cells[0].value == "X") {
                 document.getElementById("xPoints").innerHTML = (++xPoints).toString();
+                document.getElementById("xPoints").style.background = "#afa";
+                setTimeout(function () {
+                    document.getElementById("xPoints").
+                        style.background = "#efe";
+                }, 200);
             }
             else {
                 document.getElementById("oPoints").innerHTML = (++oPoints).toString();
+                document.getElementById("oPoints").style.background = "#faa";
+                setTimeout(function () {
+                    document.getElementById("oPoints").
+                        style.background = "#fee";
+                }, 200);
             }
             this.NextTurn();
         }
@@ -92,9 +103,19 @@ var Board = /** @class */ (function () {
             (this.cells[4].value == this.cells[7].value))) {
             if (this.cells[1].value == "X") {
                 document.getElementById("xPoints").innerHTML = (++xPoints).toString();
+                document.getElementById("xPoints").style.background = "#afa";
+                setTimeout(function () {
+                    document.getElementById("xPoints").
+                        style.background = "#efe";
+                }, 200);
             }
             else {
                 document.getElementById("oPoints").innerHTML = (++oPoints).toString();
+                document.getElementById("oPoints").style.background = "#faa";
+                setTimeout(function () {
+                    document.getElementById("oPoints").
+                        style.background = "#fee";
+                }, 200);
             }
             this.NextTurn();
         }
@@ -102,9 +123,19 @@ var Board = /** @class */ (function () {
             (this.cells[5].value == this.cells[8].value))) {
             if (this.cells[2].value == "X") {
                 document.getElementById("xPoints").innerHTML = (++xPoints).toString();
+                document.getElementById("xPoints").style.background = "#afa";
+                setTimeout(function () {
+                    document.getElementById("xPoints").
+                        style.background = "#efe";
+                }, 200);
             }
             else {
                 document.getElementById("oPoints").innerHTML = (++oPoints).toString();
+                document.getElementById("oPoints").style.background = "#faa";
+                setTimeout(function () {
+                    document.getElementById("oPoints").
+                        style.background = "#fee";
+                }, 200);
             }
             this.NextTurn();
         }
@@ -113,9 +144,19 @@ var Board = /** @class */ (function () {
             (this.cells[1].value == this.cells[2].value))) {
             if (this.cells[0].value == "X") {
                 document.getElementById("xPoints").innerHTML = (++xPoints).toString();
+                document.getElementById("xPoints").style.background = "#afa";
+                setTimeout(function () {
+                    document.getElementById("xPoints").
+                        style.background = "#efe";
+                }, 200);
             }
             else {
                 document.getElementById("oPoints").innerHTML = (++oPoints).toString();
+                document.getElementById("oPoints").style.background = "#faa";
+                setTimeout(function () {
+                    document.getElementById("oPoints").
+                        style.background = "#fee";
+                }, 200);
             }
             this.NextTurn();
         }
@@ -123,9 +164,19 @@ var Board = /** @class */ (function () {
             (this.cells[4].value == this.cells[5].value))) {
             if (this.cells[3].value == "X") {
                 document.getElementById("xPoints").innerHTML = (++xPoints).toString();
+                document.getElementById("xPoints").style.background = "#afa";
+                setTimeout(function () {
+                    document.getElementById("xPoints").
+                        style.background = "#efe";
+                }, 200);
             }
             else {
                 document.getElementById("oPoints").innerHTML = (++oPoints).toString();
+                document.getElementById("oPoints").style.background = "#faa";
+                setTimeout(function () {
+                    document.getElementById("oPoints").
+                        style.background = "#fee";
+                }, 200);
             }
             this.NextTurn();
         }
@@ -133,9 +184,19 @@ var Board = /** @class */ (function () {
             (this.cells[7].value == this.cells[8].value))) {
             if (this.cells[6].value == "X") {
                 document.getElementById("xPoints").innerHTML = (++xPoints).toString();
+                document.getElementById("xPoints").style.background = "#afa";
+                setTimeout(function () {
+                    document.getElementById("xPoints").
+                        style.background = "#efe";
+                }, 200);
             }
             else {
                 document.getElementById("oPoints").innerHTML = (++oPoints).toString();
+                document.getElementById("oPoints").style.background = "#faa";
+                setTimeout(function () {
+                    document.getElementById("oPoints").
+                        style.background = "#fee";
+                }, 200);
             }
             this.NextTurn();
         }
@@ -144,9 +205,19 @@ var Board = /** @class */ (function () {
             (this.cells[4].value == this.cells[8].value))) {
             if (this.cells[0].value == "X") {
                 document.getElementById("xPoints").innerHTML = (++xPoints).toString();
+                document.getElementById("xPoints").style.background = "#afa";
+                setTimeout(function () {
+                    document.getElementById("xPoints").
+                        style.background = "#efe";
+                }, 200);
             }
             else {
                 document.getElementById("oPoints").innerHTML = (++oPoints).toString();
+                document.getElementById("oPoints").style.background = "#faa";
+                setTimeout(function () {
+                    document.getElementById("oPoints").
+                        style.background = "#fee";
+                }, 200);
             }
             this.NextTurn();
         }
@@ -154,9 +225,19 @@ var Board = /** @class */ (function () {
             (this.cells[4].value == this.cells[6].value))) {
             if (this.cells[2].value == "X") {
                 document.getElementById("xPoints").innerHTML = (++xPoints).toString();
+                document.getElementById("xPoints").style.background = "#afa";
+                setTimeout(function () {
+                    document.getElementById("xPoints").
+                        style.background = "#efe";
+                }, 200);
             }
             else {
                 document.getElementById("oPoints").innerHTML = (++oPoints).toString();
+                document.getElementById("oPoints").style.background = "#faa";
+                setTimeout(function () {
+                    document.getElementById("oPoints").
+                        style.background = "#fee";
+                }, 200);
             }
             this.NextTurn();
         }
@@ -201,12 +282,14 @@ window.onload = function () {
     reset.onclick = function (e) { playBoard.ResetGame(); };
     document.addEventListener("keypress", function (event) {
         var keysArray = [49, 50, 51, 52, 53, 54, 55, 56, 57, 58];
+        var keyIndex = keysArray.indexOf(event.keyCode);
         if (event.keyCode >= 48 && event.keyCode <= 57) {
-            var keyIndex = keysArray.indexOf(event.keyCode);
+            if ((playBoard.cells[keyIndex].value != "X") && (playBoard.cells[keyIndex].value != "O")) {
+                ++turnNum;
+            }
             var value = currentPlayer[turnNum % 2];
             playBoard.cells[keyIndex].value = value;
             document.getElementById("cell" + keyIndex).innerHTML = playBoard.cells[keyIndex].value;
-            turnNum++;
             console.log(keyIndex);
             playBoard.CurrentTurn();
             playBoard.StillRunning();
