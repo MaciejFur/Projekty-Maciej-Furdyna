@@ -20,10 +20,13 @@ var ball = {
     color: "black"
 };
 var pickableNumber = x / 10;
-function onDeviceOrientationChange(e) {
-    console.log(e.alpha, e.beta, e.gamma);
+function onDeviceOrientationChange(event) {
+    var absolute = event.absolute;
+    var alpha = event.alpha;
+    var beta = event.beta;
+    var gamma = event.gamma;
+    console.log(event.alpha, event.beta, event.gamma);
 }
-animate();
 function animate() {
     // obliczenia, zmiana położenia
     window.requestAnimationFrame(animate);
@@ -50,7 +53,6 @@ function resized() {
     drawPlayer();
     */
 }
-window.addEventListener("resize", resized);
 drawPlayer();
 function mapSize(min, max) {
     min = Math.ceil(min);
@@ -75,5 +77,9 @@ for (var i = 0; i <= pickableNumber; i++) {
     listOfPickups[listOfPickups.length] = (new Pickups(xLocation, yLocation, objectRadius, objectColor));
     drawPickups(xLocation, yLocation, objectRadius, objectColor);
 }
+function playerMovement() {
+}
 console.log(listOfPickups);
+window.addEventListener("deviceorientation", onDeviceOrientationChange, true);
+window.addEventListener("resize", resized);
 //# sourceMappingURL=main.js.map

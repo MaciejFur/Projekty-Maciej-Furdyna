@@ -1,3 +1,4 @@
+
 class Pickups {
     public x: number;
     public y: number;
@@ -31,11 +32,14 @@ const ball = {
 }
 let pickableNumber : number = x/10;
 
-function onDeviceOrientationChange(e: any): void 
-{
-    console.log(e.alpha, e.beta, e.gamma);
+
+function onDeviceOrientationChange(event) {
+    var absolute = event.absolute;
+    var alpha    = event.alpha;
+    var beta     = event.beta;
+    var gamma    = event.gamma;
+    console.log(event.alpha, event.beta, event.gamma);
 }
-animate()
 function animate(): void {
     // obliczenia, zmiana położenia
     window.requestAnimationFrame(animate)
@@ -66,7 +70,6 @@ function resized()
     */
     
 }
-window.addEventListener("resize", resized);
 drawPlayer();
 function mapSize(min, max)
 {
@@ -95,5 +98,12 @@ for (let i = 0; i <= pickableNumber; i++)
     }
     listOfPickups[listOfPickups.length] = (new Pickups(xLocation, yLocation, objectRadius, objectColor));
     drawPickups(xLocation, yLocation, objectRadius, objectColor);
+    
+}
+function playerMovement()
+{
+    
 }
 console.log(listOfPickups);
+window.addEventListener("deviceorientation", onDeviceOrientationChange, true);
+window.addEventListener("resize", resized);
