@@ -4,14 +4,15 @@ body {
 }
 
 body p {
-  font-size: 42px;
+  font-size: 20px;
   padding: 0 3rem;
   background: #333;
+  text-align: center;
 }
 
 body p span {
   margin-left: 1.575rem;
-  font-size: 32px;
+  font-size: 18px;
   text-decoration: underline;
 }
 
@@ -32,8 +33,8 @@ body p span {
   margin-left: auto;
   margin-right: auto;
   position: absolute;
-  right: 0;
-  width: 25%;
+  left: 0;
+  width: 100%;
   z-index: 1;
 }
 
@@ -43,8 +44,8 @@ canvas {
   margin-left: auto;
   margin-right: auto;
   position: absolute;
-  top: 0;
-  left: 10%;
+  top: 120px;
+  left: 0;
   z-index: 2;
 }
 /*# sourceMappingURL=style.css.map */

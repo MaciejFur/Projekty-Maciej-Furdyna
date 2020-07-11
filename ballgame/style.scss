@@ -4,12 +4,13 @@ body{
     background-color: #222;
     font-family: 'VT323', monospace;
     p{
-        font-size: 42px;
+        font-size: 20px;
         padding:0 3rem;
         background: #333;
+        text-align: center;
         span{
             margin-left: 1.575rem;
-            font-size: 32px;
+            font-size: 18px;
             text-decoration: underline;
         }
     }
@@ -31,8 +32,8 @@ body{
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    right:0;
-    width:25%;
+    left:0;
+    width:100%;
     z-index: 1;
 }
 canvas {
@@ -43,7 +44,7 @@ canvas {
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    top: 0;
-    left:10%;
+    top: 120px;
+    left:0;
     z-index: 2;
   }
