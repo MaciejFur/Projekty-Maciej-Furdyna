@@ -20,7 +20,10 @@ var envOrientation = {
 var calcA = 0 - envOrientation.alpha;
 var calcB = 90 - envOrientation.beta;
 var calcC = 0 - envOrientation.gamma;
-var points = 0;
+var displays = {
+    lives: 5,
+    points: 0
+};
 canvas.width = window.innerWidth / 1.01;
 canvas.height = window.innerHeight / 1.2;
 var x = canvas.width;
@@ -114,14 +117,31 @@ function collision(a, b, c) {
             var dy = b - pickup.y;
             var distance = Math.sqrt(dx * dx + dy * dy);
             if (distance < (ball.radius + pickup.radius)) {
-                pickup.color = "yellow";
-                points++;
-                console.log(points);
+                if (pickup.radius == 15 && pickup.active == true) {
+                    pickup.active = false;
+                    displays.points++;
+                    console.log(displays.points);
+                    document.getElementById("score").innerHTML = displays.points.toString();
+                }
+                if (pickup.radius == 10 && pickup.active == true) {
+                    pickup.active = false;
+                    displays.points += 5;
+                    console.log(displays.points);
+                    document.getElementById("score").innerHTML = displays.points.toString();
+                }
+                if (pickup.radius == 30 && pickup.active == true) {
+                    pickup.active = false;
+                    displays.lives--;
+                    console.log(displays.lives);
+                    document.getElementById("lives").innerHTML = displays.lives.toString();
+                }
             }
         }
     }
 }
 animate();
+document.getElementById("score").innerHTML = displays.points.toString();
+document.getElementById("lives").innerHTML = displays.lives.toString();
 console.log(listOfPickups);
 window.addEventListener("deviceorientation", onDeviceOrientationChange, true);
 window.addEventListener("resize", resized);
