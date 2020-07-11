@@ -1,5 +1,6 @@
 var Pickups = /** @class */ (function () {
     function Pickups(x, y, radius, color) {
+        this.active = true;
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -10,9 +11,15 @@ var Pickups = /** @class */ (function () {
 var canvas = document.getElementById("game");
 var context = canvas.getContext("2d");
 //landscape right
-var alpha = 0;
-var beta = 90;
-var gamma = 0;
+var envOrientation = {
+    alpha: 0,
+    beta: 90,
+    gamma: 0
+};
+//animation values
+var calcA = 0 - envOrientation.alpha;
+var calcB = 90 - envOrientation.beta;
+var calcC = 0 - envOrientation.gamma;
 var points = 0;
 canvas.width = window.innerWidth / 1.01;
 canvas.height = window.innerHeight / 1.2;
@@ -22,25 +29,31 @@ var ball = {
     x: (x / 2),
     y: (y / 2),
     radius: 20,
-    color: "black"
+    color: "black",
+    speed: {
+        x: 0,
+        y: 0,
+        factor: 50
+    }
 };
 var pickableNumber = x / 10;
 function onDeviceOrientationChange(event) {
-    var absolute = event.absolute;
-    this.alpha = event.alpha;
-    this.beta = event.beta;
-    this.gamma = event.gamma;
-    console.log(event.alpha, event.beta, event.gamma);
+    if (envOrientation.alpha === null) {
+        envOrientation.alpha = event.alpha;
+        envOrientation.beta = event.beta;
+        envOrientation.gamma = event.gamma;
+    }
+    ball.speed.x = (event.alpha - envOrientation.alpha) / ball.speed.factor;
+    ball.speed.y = (event.beta - envOrientation.beta) / ball.speed.factor;
 }
 function animate() {
     // obliczenia, zmiana położenia
-    var calcA = 0 - alpha;
-    var calcB = 90 - beta;
-    var calcC = 0 - gamma;
+    ball.y += ball.speed.y;
+    ball.x += ball.speed.x;
     context.clearRect(0, 0, canvas.width, canvas.height);
     for (var _i = 0, listOfPickups_1 = listOfPickups; _i < listOfPickups_1.length; _i++) {
         var pickup = listOfPickups_1[_i];
-        drawPickups(pickup.x, pickup.y, pickup.radius, pickup.color);
+        drawPickups(pickup.x, pickup.y, pickup.radius, pickup.color, pickup.active);
     }
     drawPlayer(calcA, calcB, calcC);
     window.requestAnimationFrame(animate);
@@ -53,12 +66,14 @@ function drawPlayer(a, b, c) {
     context.fill();
     collision(ball.x + a, ball.y + b, c);
 }
-function drawPickups(x, y, radius, color) {
-    context.beginPath();
-    context.arc(x, y, radius, 0, 2 * Math.PI);
-    context.stroke();
-    context.fillStyle = color;
-    context.fill();
+function drawPickups(x, y, radius, color, active) {
+    if (active == true) {
+        context.beginPath();
+        context.arc(x, y, radius, 0, 2 * Math.PI);
+        context.stroke();
+        context.fillStyle = color;
+        context.fill();
+    }
 }
 function resized() {
     /*
@@ -93,7 +108,7 @@ function collision(a, b, c) {
     //let i: number = 0;
     for (var _i = 0, listOfPickups_2 = listOfPickups; _i < listOfPickups_2.length; _i++) {
         var pickup = listOfPickups_2[_i];
-        if (pickup.color != "yellow") {
+        if (pickup.active == true) {
             //i++;
             var dx = a - pickup.x;
             var dy = b - pickup.y;

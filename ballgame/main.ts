@@ -3,7 +3,8 @@ class Pickups {
     public x: number;
     public y: number;
     public radius: number;
-    public color: string;   
+    public color: string;
+    public active: boolean = true;   
     constructor(x: number, 
                 y: number,
                 radius: number,
@@ -18,9 +19,15 @@ class Pickups {
 const canvas = <HTMLCanvasElement> document.getElementById("game"); 
 const context = canvas.getContext("2d"); 
 //landscape right
-let alpha : number = 0;
-let beta : number = 90;
-let gamma : number = 0;
+const envOrientation = {
+    alpha :  0,
+    beta : 90,
+    gamma : 0
+}
+//animation values
+let calcA : number = 0 - envOrientation.alpha;
+let calcB : number = 90 - envOrientation.beta;
+let calcC : number = 0 - envOrientation.gamma;
 
 let points : number = 0;
 
@@ -34,26 +41,34 @@ const ball = {
     x: (x/2),
     y: (y/2),
     radius: 20,
-    color: "black"
+    color: "black",
+    speed: {
+        x: 0,
+        y: 0,
+        factor: 50
+    }
 }
 let pickableNumber : number = x/10;
 
 function onDeviceOrientationChange(event) {
-    let absolute = event.absolute;
-    this.alpha    = event.alpha;
-    this.beta     = event.beta;
-    this.gamma    = event.gamma;
-    console.log(event.alpha, event.beta, event.gamma);
+    if(envOrientation.alpha === null)
+    {    
+        envOrientation.alpha = event.alpha;
+        envOrientation.beta = event.beta;
+        envOrientation.gamma = event.gamma;
+    }
+    ball.speed.x = (event.alpha-envOrientation.alpha)/ball.speed.factor
+    ball.speed.y = (event.beta-envOrientation.beta)/ball.speed.factor;
+    
 }
 function animate(): void {
     // obliczenia, zmiana położenia
-    let calcA : number = 0 - alpha;
-    let calcB : number = 90 - beta;
-    let calcC : number = 0 - gamma;
+    ball.y += ball.speed.y;
+    ball.x += ball.speed.x;
     context.clearRect(0, 0, canvas.width, canvas.height);
     for (const pickup of listOfPickups) 
     {
-        drawPickups(pickup.x, pickup.y, pickup.radius, pickup.color);   
+        drawPickups(pickup.x, pickup.y, pickup.radius, pickup.color, pickup.active);   
     }
     drawPlayer(calcA, calcB, calcC);
 
@@ -68,13 +83,16 @@ function drawPlayer(a : number, b : number, c : number)
     context.fill();
     collision(ball.x + a, ball.y + b, c);
 }
-function drawPickups(x, y, radius, color)
+function drawPickups(x, y, radius, color, active)
 {
-    context.beginPath();
-    context.arc(x, y, radius, 0, 2 * Math.PI);
-    context.stroke();
-    context.fillStyle = color;
-    context.fill();
+    if(active == true)
+    {
+        context.beginPath();
+        context.arc(x, y, radius, 0, 2 * Math.PI);
+        context.stroke();
+        context.fillStyle = color;
+        context.fill();    
+    }
 }
 function resized()
 {
@@ -119,7 +137,7 @@ function collision(a : number, b : number, c : number)
     //let i: number = 0;
     for (const pickup of listOfPickups) 
     {
-        if(pickup.color != "yellow")  
+        if(pickup.active == true )  
         { 
             //i++;
             let dx : number = a - pickup.x;
